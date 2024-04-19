@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone_number');
-            $table->dateTime('date_of_birth');
+            $table->date('date_of_birth');
             $table->enum('gender', ['male', 'female']);
             $table->string('id_card_number');
             $table->string('image_profile_url')->nullable();
