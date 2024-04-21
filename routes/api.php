@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,18 +16,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
+// Authentication Routes
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 ], function ($router) {
-    Route::post('register', [AuthController::class, 'register']);   
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
-    Route::post('me', [AuthController::class, 'me']);
+});
 
+// Public Features Routes
+Route::group([
+    'middleware' => 'api',
+], function ($router) {
+    Route::get('active-users', [MemberController::class, 'getActiveUsers']);
+});
+
+// Admin Features Routes
+// Route::group([
+//     'middleware' => 'api',
+// ], function ($router) {
+// });
+
+// Profile Routes
+Route::group([
+    'middleware' => 'api',
+], function ($router) {
+    Route::post('register', [ProfileController::class, 'register']);   
+    Route::post('me', [ProfileController::class, 'me']);
 });
